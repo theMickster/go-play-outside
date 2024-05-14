@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Regular Coffee",
+    "category": "Coffee",
+    "prices": {
+        "small": 1.65,
+        "medium": 1.80,
+        "large": 1.95
+      }
+  },
+  {
+    "name": "Decaffeinated Coffee",
+    "category": "Coffee",
+    "prices": {
+        "small": 1.75,
+        "medium": 1.85,
+        "large": 2.00
+    }    
+  },
+  {
+    "name": "Hot Chocolate",
+    "category": "Hot Cocoa",
+    "prices": {
+        "small": 1.50,
+        "medium": 1.70,
+        "large": 1.90
+    }
+  },
+  {
+    "name": "White Chocolate",
+    "category": "Hot Cocoa",
+    "prices": {
+        "small": 1.45,
+        "medium": 1.65,
+        "large": 1.95
+    }    
+  }  
+]

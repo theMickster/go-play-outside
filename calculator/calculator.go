@@ -46,10 +46,10 @@ func multiplyValues(value1, value2 float64) float64 {
 	return value1 * value2
 }
 
-func divideValues(dividend, divisor float64) float64 {
+func divideValues(dividend, divisor float64) (result float64) {
 	defer func() {
 		if message := recover(); message != nil {
-			fmt.Println(message)
+			result = 0
 		}
 	}()
 	return dividend / divisor

@@ -15,6 +15,14 @@
             "mode": "auto",
             "program": "${workspaceRoot}/shawskyRoasters",
             "console": "integratedTerminal"
-        }        
+        },
+        {
+            "name": "Launch Fizz Buzz",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/fizzBuzz",
+            "console": "integratedTerminal"
+        }         
     ]
 }

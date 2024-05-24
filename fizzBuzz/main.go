@@ -11,7 +11,8 @@ import (
 var userInput = bufio.NewReader(os.Stdin)
 
 func main() {
-	fmt.Println("Welcome to Fizz Buzz! Please enter an integer between 25 and 100 to serve as the ceiling of the 'Fizz Buzz' challenge to continue...")
+	fmt.Println("Welcome to Fizz Buzz!")
+	fmt.Println("Please enter an integer between 25 and 100 to serve as the ceiling of the 'Fizz Buzz' challenge to continue...")
 	input, _ := userInput.ReadString('\n')
 	input = strings.TrimSpace(input)
 
@@ -26,7 +27,21 @@ func main() {
 		panic(message)
 	}
 
-	for i := 1; i <= ceiling; i++ {
+	fmt.Println("Which version would you like to see the solution? v1 or v2")
+	input, _ = userInput.ReadString('\n')
+	input = strings.ToUpper(strings.TrimSpace(input))
+	if input != "V1" && input != "V2" {
+		message := fmt.Sprintf("The input string '%s' you entered was not a valid version", input)
+		panic(message)
+	} else if input == "V1" {
+		fizzBuzzVersionOne(ceiling)
+	} else if input == "V2" {
+		fizzBuzzVersionTwo(ceiling)
+	}
+}
+
+func fizzBuzzVersionOne(limit int) {
+	for i := 1; i <= limit; i++ {
 		if i%3 == 0 && i%5 == 0 {
 			fmt.Println("fizz buzz")
 		} else if i%3 == 0 {
@@ -37,5 +52,18 @@ func main() {
 			fmt.Println(i)
 		}
 	}
+}
 
+func fizzBuzzVersionTwo(limit int) {
+	for i := 1; i <= limit; i++ {
+		if i%15 == 0 {
+			fmt.Println("fizz buzz")
+		} else if i%3 == 0 {
+			fmt.Println("fizz")
+		} else if i%5 == 0 {
+			fmt.Println("buzz")
+		} else {
+			fmt.Println(i)
+		}
+	}
 }

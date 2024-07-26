@@ -18,31 +18,43 @@ func main() {
 	go validateOrders(receivedOrdersChannel, validOrderChannel, invalidOrderChannel)
 
 	wg.Add(1)
-	go func() {
-		order := <-validOrderChannel
-		fmt.Printf("A valid order has been received: %v\n", order)
+	go func(validOrderChannel <-chan models.Order, invalidOrderChannel <-chan models.InvalidOrder) {
+	orderLoop:
+		for {
+			select {
+			case order, ok := <-validOrderChannel:
+				if ok {
+					fmt.Printf("A valid order has been received: %v\n", order)
+				} else {
+					break orderLoop
+				}
+			case invalidOrder, ok := <-invalidOrderChannel:
+				if ok {
+					fmt.Printf("An invalid order has been received and rejected. %v Validation Error: %v\n", invalidOrder.Order, invalidOrder.Err)
+				} else {
+					break orderLoop
+				}
+			}
+		}
 		wg.Done()
-	}()
-
-	go func() {
-		invalidOrder := <-invalidOrderChannel
-		fmt.Printf("An invalid order has been received and rejected. %v Validation Error: %v\n", invalidOrder.Order, invalidOrder.Err)
-		wg.Done()
-	}()
+	}(validOrderChannel, invalidOrderChannel)
 	wg.Wait()
 
 }
 
 func validateOrders(inbound <-chan models.Order, outbound chan<- models.Order, errorChan chan<- models.InvalidOrder) {
-	order := <-inbound
-	if order.Quantity <= 0 {
-		errorChan <- models.InvalidOrder{Order: order, Err: errors.New("product quantity must be greater than zero (0)")}
-	} else {
-		outbound <- order
+	for order := range inbound {
+		if order.Quantity <= 0 {
+			errorChan <- models.InvalidOrder{Order: order, Err: errors.New("product quantity must be greater than zero (0)")}
+		} else {
+			outbound <- order
+		}
 	}
+	close(outbound)
+	close(errorChan)
 }
 
-func receiveOrders(outbound chan models.Order) {
+func receiveOrders(outbound chan<- models.Order) {
 	for _, anOrder := range someOrders {
 		var newOrder models.Order
 		err := json.Unmarshal([]byte(anOrder), &newOrder)
@@ -52,10 +64,11 @@ func receiveOrders(outbound chan models.Order) {
 		}
 		outbound <- newOrder
 	}
+	close(outbound)
 }
 
 var someOrders = []string{
-	`{"productCode": 1111, "quantity": -5, "status": 1}`,
+	`{"productCode": 1111, "quantity": 5, "status": 1}`,
 	`{"productCode": 2222, "quantity": 42, "status": 2}`,
 	`{"productCode": 3333, "quantity": 19, "status": 2}`,
 	`{"productCode": 4444, "quantity": 8, "status": 3}`,

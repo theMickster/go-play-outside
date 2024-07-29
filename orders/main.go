@@ -38,7 +38,7 @@ func fillOrders(inboundChan <-chan models.Order) <-chan models.Order {
 	outboundChan := make(chan models.Order)
 
 	var wg sync.WaitGroup
-	const workers = 3
+	const workers = 1
 	wg.Add(workers)
 
 	for i := 0; i < workers; i++ {
@@ -63,7 +63,7 @@ func reserveProductInventory(inboundChan <-chan models.Order) <-chan models.Orde
 	outboundChan := make(chan models.Order)
 
 	var wg sync.WaitGroup
-	const workers = 3
+	const workers = 1
 	wg.Add(workers)
 
 	for i := 0; i < workers; i++ {
@@ -71,6 +71,7 @@ func reserveProductInventory(inboundChan <-chan models.Order) <-chan models.Orde
 			for order := range inboundChan {
 				order.Status = 3
 				fmt.Printf("The inventory for an order has been reserved: %v\n", order)
+				outboundChan <- order
 			}
 			wg.Done()
 		}()
@@ -121,9 +122,9 @@ func receiveOrders() chan models.Order {
 
 var someOrders = []string{
 	`{"productCode": 1111, "quantity": 5, "status": 1}`,
-	`{"productCode": 2222, "quantity": 42, "status": 0}`,
-	`{"productCode": 3333, "quantity": 19, "status": 0}`,
-	`{"productCode": 4444, "quantity": 8, "status": 0}`,
-	`{"productCode": 5555, "quantity": -18, "status": 0}`,
-	`{"productCode": 4444, "quantity": 1, "status": 0}`,
+	`{"productCode": 2222, "quantity": 42, "status": 1}`,
+	`{"productCode": 3333, "quantity": 19, "status": 1}`,
+	`{"productCode": 4444, "quantity": 8, "status": 1}`,
+	`{"productCode": 5555, "quantity": -18, "status": 1}`,
+	`{"productCode": 4444, "quantity": 1, "status": 1}`,
 }

@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Launch Hello",
             "type": "go",
@@ -30,7 +31,15 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceRoot}/channels/directionalChannels",
+            "console": "integratedTerminal"              
+        },
+        {
+            "name": "Launch Concurrent Order",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/orders",
             "console": "integratedTerminal"
-        }      
+        }
     ]
 }

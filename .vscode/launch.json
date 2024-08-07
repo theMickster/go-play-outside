@@ -40,6 +40,14 @@
             "mode": "auto",
             "program": "${workspaceRoot}/orders",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Dbs - Relational - Pubs",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/dbs/relationalDb/pubs",
+            "console": "integratedTerminal"
         }
     ]
 }

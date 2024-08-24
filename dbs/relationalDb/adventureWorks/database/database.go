@@ -22,7 +22,7 @@ type Config struct {
 	DbUser          string
 	DbPass          string
 	ApplicationName string
-	DbPort          int32
+	DbPort          int
 	AuthMethod      AuthenticationMethod
 }
 

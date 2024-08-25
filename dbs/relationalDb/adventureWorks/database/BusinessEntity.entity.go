@@ -1,12 +1,18 @@
 package database
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type BusinessEntity struct {
-	BusinessEntityID uint   `gorm:"primaryKey"`
-	RowGuid          string `gorm:"column:rowguid;not null"`
-	ModifiedDate     time.Time
+	Id           int       `gorm:"column:BusinessEntityID;autoIncrement"`
+	RowGuid      uuid.UUID `gorm:"column:rowguid; type:uuid"`
+	ModifiedDate time.Time
 }
+
+type BusinessEntities []*BusinessEntity
 
 func (u *BusinessEntity) TableName() string {
 	return "Person.BusinessEntity"

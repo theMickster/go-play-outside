@@ -6,6 +6,7 @@ import (
 
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 type AuthenticationMethod int
@@ -40,7 +41,12 @@ func InitDatabase(config Config) error {
 		connectionString += "Trusted_Connection=True;"
 	}
 
-	db, err := gorm.Open(sqlserver.Open(connectionString), &gorm.Config{})
+	db, err := gorm.Open(sqlserver.Open(connectionString), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true,
+			NoLowerCase:   true,
+		},
+	})
 	if err != nil {
 		return err
 	}

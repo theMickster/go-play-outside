@@ -14,10 +14,11 @@ func retrieveSqlConfig() database.Config {
 		panic(message)
 	}
 	return database.Config{
-		DbServer:   os.Getenv("AdventureWorksSqlServerName"),
-		DbName:     os.Getenv("AdventureWorksSqlDatabaseName"),
-		DbPort:     dbPort,
-		AuthMethod: database.Windows,
+		DbServer:        os.Getenv("AdventureWorksSqlServerName"),
+		DbName:          os.Getenv("AdventureWorksSqlDatabaseName"),
+		DbPort:          dbPort,
+		AuthMethod:      database.Windows,
+		ApplicationName: "Adventures in Go",
 	}
 }
 

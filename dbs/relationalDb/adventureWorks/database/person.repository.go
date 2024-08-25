@@ -53,3 +53,9 @@ func (r *PersonRepository) DeletePerson(id int) (int64, error) {
 
 	return result01.RowsAffected + result02.RowsAffected, result01.Error
 }
+
+func (r *PersonRepository) UpdatePerson(person *Person) (int64, error) {
+	result := r.db.Model(&Person{}).
+		Select("Title", "FirstName", "LastName", "Suffix")
+
+}

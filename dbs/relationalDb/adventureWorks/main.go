@@ -30,9 +30,6 @@ func main() {
 			michaelScott.BusinessEntity.RowGuid.String())
 	}
 
-	//personTypes := make([]*database.PersonType, 0)
-	//database.DatabaseContext.Find(&personTypes)
-
 	persons, err := pr.GetPersons()
 	if err != nil {
 		fmt.Println(err.Error())

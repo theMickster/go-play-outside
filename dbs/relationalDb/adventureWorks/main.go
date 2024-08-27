@@ -41,10 +41,11 @@ func main() {
 	}
 
 	newPerson := &database.Person{
-		Title:        sql.NullString{String: "Mr.", Valid: true},
-		FirstName:    "A First Name",
-		LastName:     "LName",
-		PersonTypeId: 4,
+		Title:          sql.NullString{String: "Mr.", Valid: true},
+		FirstName:      "A First Name",
+		LastName:       "LName",
+		PersonTypeId:   4,
+		EmailPromotion: 0,
 	}
 
 	_, err = pr.CreatePerson(newPerson)
@@ -54,11 +55,21 @@ func main() {
 		fmt.Printf("A new person was created with an id of %v \n", newPerson.Id)
 	}
 
-	rows, err := pr.DeletePerson(newPerson.Id)
+	newPerson.FirstName = "An Updated FirstName"
+	newPerson.LastName = "An Updated LastName"
+
+	uRows, err := pr.UpdatePerson(newPerson)
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
-		fmt.Printf("A new person was delete with an id of %v.... Confirmed rows deleted: %v \n", newPerson.Id, rows)
+		fmt.Printf("A person was updated with an id of %v.... Confirmed rows updated: %v \n", newPerson.Id, uRows)
+	}
+
+	dRows, err := pr.DeletePerson(newPerson.Id)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Printf("A new person was delete with an id of %v.... Confirmed rows deleted: %v \n", newPerson.Id, dRows)
 	}
 
 	fmt.Println("--> Exiting Application")

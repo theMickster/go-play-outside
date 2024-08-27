@@ -56,6 +56,9 @@ func (r *PersonRepository) DeletePerson(id int) (int64, error) {
 
 func (r *PersonRepository) UpdatePerson(person *Person) (int64, error) {
 	result := r.db.Model(&Person{}).
-		Select("Title", "FirstName", "LastName", "Suffix")
+		Select("Title", "FirstName", "LastName", "Suffix").
+		Where("BusinessEntityID = ?", person.Id).
+		Updates(person)
 
+	return result.RowsAffected, result.Error
 }

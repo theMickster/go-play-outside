@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 	"shawskyRecords/models"
+	"shawskyRecords/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,8 +18,36 @@ import (
 //	@Failure		404	{object}	httputil.HTTPError
 //	@Failure		500	{object}	httputil.HTTPError
 //	@Router			/albums [get]
-func (c *Controller) GetAlbums(context *gin.Context) {
-	context.IndentedJSON(http.StatusOK, models.Albums)
+//
+// @Param X-ApplicationId header string true "Application  ID"
+func (c *Controller) GetAlbums(ctx *gin.Context) {
+	service := services.NewAlbumService()
+	ctx.IndentedJSON(http.StatusOK, service.GetAlbums())
+}
+
+// GetAlbumById godoc
+//
+//		@Summary		Retrieve a single album
+//		@ID Retrieve an album by id
+//		@Tags			Albums
+//		@Produce		json
+//	 @Param id path string true "album id"
+//		@Success		200	{object}	models.Album
+//		@Failure		400	{object}	httputil.HTTPError
+//		@Failure		404	{object}	httputil.HTTPError
+//		@Failure		500	{object}	httputil.HTTPError
+//		@Router			/albums/{id} [get]
+//
+// @Param X-ApplicationId header string true "Application  ID"
+func (c *Controller) GetAlbumById(ctx *gin.Context) {
+	id := ctx.Param("id")
+	service := services.NewAlbumService()
+	result, err := service.GetAlbumById(id)
+	if err != nil {
+		ctx.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
+		return
+	}
+	ctx.IndentedJSON(http.StatusOK, result)
 }
 
 // CreateAlbum godoc
@@ -33,13 +62,16 @@ func (c *Controller) GetAlbums(context *gin.Context) {
 //	@Failure		404	{object}	httputil.HTTPError
 //	@Failure		500	{object}	httputil.HTTPError
 //	@Router			/albums [post]
-func (c *Controller) CreateAlbum(content *gin.Context) {
+//
+// @Param X-ApplicationId header string true "Application  ID"
+func (c *Controller) CreateAlbum(ctx *gin.Context) {
+	service := services.NewAlbumService()
 	var newAlbum models.Album
 
-	if err := content.BindJSON(&newAlbum); err != nil {
+	if err := ctx.BindJSON(&newAlbum); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Invalid album body"})
 		return
 	}
-
-	models.Albums = append(models.Albums, newAlbum)
-	content.IndentedJSON(http.StatusCreated, newAlbum)
+	result := service.CreateAlbum(newAlbum)
+	ctx.IndentedJSON(http.StatusCreated, result)
 }

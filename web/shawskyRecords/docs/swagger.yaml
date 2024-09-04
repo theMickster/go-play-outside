@@ -39,6 +39,12 @@ info:
 paths:
   /albums:
     get:
+      parameters:
+      - description: Application  ID
+        in: header
+        name: X-ApplicationId
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -73,6 +79,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.Album'
+      - description: Application  ID
+        in: header
+        name: X-ApplicationId
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -93,6 +104,42 @@ paths:
           schema:
             $ref: '#/definitions/httputil.HTTPError'
       summary: Create a single album
+      tags:
+      - Albums
+  /albums/{id}:
+    get:
+      operationId: Retrieve an album by id
+      parameters:
+      - description: album id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Application  ID
+        in: header
+        name: X-ApplicationId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Album'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Retrieve a single album
       tags:
       - Albums
 swagger: "2.0"

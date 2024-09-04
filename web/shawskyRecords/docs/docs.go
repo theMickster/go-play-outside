@@ -33,6 +33,15 @@ const docTemplate = `{
                     "Albums"
                 ],
                 "summary": "Retrieve all albums",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Application  ID",
+                        "name": "X-ApplicationId",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -83,6 +92,67 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.Album"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Application  ID",
+                        "name": "X-ApplicationId",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Album"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/albums/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Albums"
+                ],
+                "summary": "Retrieve a single album",
+                "operationId": "Retrieve an album by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "album id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Application  ID",
+                        "name": "X-ApplicationId",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {

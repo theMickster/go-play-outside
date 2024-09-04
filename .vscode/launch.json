@@ -1,6 +1,8 @@
 {
     "version": "0.2.0",
     "configurations": [
+
+
         {
             "name": "Launch Hello",
             "type": "go",
@@ -23,6 +25,54 @@
             "mode": "auto",
             "program": "${workspaceRoot}/fizzBuzz",
             "console": "integratedTerminal"
-        }         
+        }    ,
+        {
+            "name": "Launch Dir. Channels",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/channels/directionalChannels",
+            "console": "integratedTerminal"              
+        },
+        {
+            "name": "Launch Concurrent Order",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/orders",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Dbs - Relational - Pubs",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/dbs/relationalDb/pubs",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Dbs - Document - Tailwind",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/dbs/documentDb/tailwind",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Dbs - Relational - AdventureWorks",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/dbs/relationalDb/adventureWorks",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Shawsky Records",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/web/shawskyRecords",
+            "console": "integratedTerminal"
+        }
     ]
 }

@@ -65,6 +65,14 @@
             "mode": "auto",
             "program": "${workspaceRoot}/dbs/relationalDb/adventureWorks",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Shawsky Records",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/web/shawskyRecords",
+            "console": "integratedTerminal"
         }
     ]
 }

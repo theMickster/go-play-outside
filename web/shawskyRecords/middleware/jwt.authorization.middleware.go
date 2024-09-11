@@ -13,7 +13,7 @@ import (
 	"github.com/lestrrat-go/jwx/jwk"
 )
 
-func AuthorizationHeader(authSettings settings.AuthSettings) gin.HandlerFunc {
+func JwtAuthorization(authSettings settings.AuthSettings) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		if strings.HasPrefix(ctx.Request.URL.Path, "/swagger/") {
 			ctx.Next()

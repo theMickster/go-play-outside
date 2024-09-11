@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ApplicationHeader(appSettings settings.ApplicationSettings) gin.HandlerFunc {
+func AppAuthentication(appSettings settings.ApplicationSettings) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		if appSettings.ApplicationId == "" {
 			log.Fatal("please configure application id environment variable")

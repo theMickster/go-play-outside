@@ -39,8 +39,8 @@ func main() {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(middleware.CORS())
-	r.Use(middleware.ApplicationHeader(appSettings))
-	r.Use(middleware.AuthorizationHeader(authSettings))
+	r.Use(middleware.AppAuthentication(appSettings))
+	r.Use(middleware.JwtAuthorization(authSettings))
 
 	c := controllers.NewController()
 

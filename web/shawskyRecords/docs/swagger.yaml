@@ -95,18 +95,37 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/httputil.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/httputil.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/httputil.HTTPError'
       summary: Create a single album
       tags:
       - Albums
   /albums/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Album ID
+        format: string
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Application  ID
+        in: header
+        name: X-ApplicationId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Delete an album
+      tags:
+      - Albums
     get:
       operationId: Retrieve an album by id
       parameters:
@@ -140,6 +159,40 @@ paths:
           schema:
             $ref: '#/definitions/httputil.HTTPError'
       summary: Retrieve a single album
+      tags:
+      - Albums
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: album id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update album
+        in: body
+        name: album
+        required: true
+        schema:
+          $ref: '#/definitions/models.Album'
+      - description: Application  ID
+        in: header
+        name: X-ApplicationId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Album'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Update a single album
       tags:
       - Albums
 swagger: "2.0"

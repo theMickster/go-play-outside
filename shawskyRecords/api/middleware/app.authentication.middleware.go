@@ -17,12 +17,16 @@ func AppAuthentication(appSettings settings.ApplicationSettings) gin.HandlerFunc
 			return
 		}
 
-		xApplicationId := strings.TrimSpace(ctx.Request.Header.Get("X-ApplicationId"))
-		if (len(xApplicationId) == 0 || !strings.EqualFold(appSettings.ApplicationId, xApplicationId)) &&
-			!strings.HasPrefix(ctx.Request.URL.Path, "/swagger/") {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Incorrect application id"})
+		if strings.Contains(ctx.Request.URL.Path, "swagger") {
+			ctx.Next()
 			return
 		}
+
+		// xApplicationId := strings.TrimSpace(ctx.Request.Header.Get("X-ApplicationId"))
+		// if len(xApplicationId) == 0 || !strings.EqualFold(appSettings.ApplicationId, xApplicationId) {
+		// 	ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Incorrect application id"})
+		// 	return
+		// }
 
 		ctx.Next()
 	}

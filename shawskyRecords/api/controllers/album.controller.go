@@ -132,11 +132,11 @@ func (c *Controller) DeleteAlbum(ctx *gin.Context) {
 	id := ctx.Param("id")
 	service := services.NewAlbumService()
 
-	result, err := service.DeleteAlbum(id)
+	_, err := service.DeleteAlbum(id)
 	if err != nil {
 		ctx.IndentedJSON(http.StatusNotFound, gin.H{"message": "Albums could not be deleted. Please verify that album exists."})
 		return
 	}
-
-	ctx.IndentedJSON(http.StatusNoContent, result)
+	ctx.Writer.WriteHeader(http.StatusNoContent)
+	ctx.Data(http.StatusNoContent, gin.MIMEHTML, nil)
 }

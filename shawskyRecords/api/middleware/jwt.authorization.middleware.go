@@ -15,7 +15,7 @@ import (
 
 func JwtAuthorization(authSettings settings.AuthSettings) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		if strings.HasPrefix(ctx.Request.URL.Path, "/swagger/") {
+		if strings.Contains(ctx.Request.URL.Path, "swagger") {
 			ctx.Next()
 			return
 		}

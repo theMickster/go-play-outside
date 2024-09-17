@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [        
+        {
+            "name": "Launch Shawsky Records",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/api",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Shawsky Records on Mac",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/api",
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/.env",
+        }
+    ]
+}

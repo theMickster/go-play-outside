@@ -15,8 +15,7 @@
   "customHandler": {
     "enableForwardingHttpRequest": true,
     "description": {
-      "defaultExecutablePath": "..//api/main.exe",
-      "workingDirectory": "",
+      "defaultExecutablePath": "main.exe",
       "arguments": []
     }
   }

@@ -1,5 +1,5 @@
 {
-    "azureFunctions.deploySubpath": "web\\shawskyRecords\\function",
+    "azureFunctions.deploySubpath": "shawskyRecords\\function",
     "azureFunctions.projectLanguage": "Custom",
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen"
